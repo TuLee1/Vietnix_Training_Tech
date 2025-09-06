@@ -365,10 +365,60 @@ sudo systemctl reload nginx
 ```
 Sau đó người dùng có thể truy cập vào đường dẫn `wp.tule.vietnix.tech` và giao diện của WordPress sẽ hiện ra. Sau khi người dùng đăng nhập vào và tiến hành tùy chỉnh thì khi tải lại giao diện của web sẽ hiện đúng như những gì đã được cài đặt, ví dụ như hình dưới:
 
----
-## CÀI SSL CHO 2 DOMAIN VỚI 
+
 
 ---
+## CÀI SSL CHO 2 DOMAIN VỚI
+Có nhiều đơn vị khác nhau cung cấp chứng chỉ SSL: trong bài viết này __ZeroSSL__ là đơn vị được sử dụng
+### SSL cho WordPress:
+Người dùng tiến hành truy cập vào trang chủ của __ZeroSSL__ tạo tài khoản (miễn phí)
+Sau khi tạo ở giao diện chính người dùng tiến hành chọn __New Certificate__
+Người dùng tiến hành điền các thông tin như __Domain__, __Validity__, ... trong bài viết này các tùy chọn __Pro__ sẽ không được sử dụng mà sẽ là các tùy chọn __miễn phí__.
+__Sau khi xong bước đầu, người dùng cần tiến hành xác thực để chứng minh quyền sở hữu tên miền.__
+* Người dùng tiến hành tải __file xác thực__ tại __Download Auth File__ (File được tải về dưới dạng .txt). Sau đó giải nén và upload file lên VPS (có thể sử dụng FTP)
+  Ở trang của __ZeroSSL__ sẽ có hướng dẫn người dùng cần upload file xác nhận vào đường dẫn nào. Ví dụ như trong hình
+  ```
+  Upload the Auth File to your HTTP server under: /.well-known/pki-validation/
+  ```
+  Lưu ý đường dẫn `/.well-known/pki-validation/` có thể thay đổi theo thời gian nên người dùng cần dựa vào đường dẫn được cung cấp của SSL để có thể xác thực thành công
+  Sau đó người dùng sẽ đưa file đó vào đường dẫn của Domain và phần mở rộng theo hướng dẫn trên.
+  Sau khi hoàn thành sẽ cần cấp thêm quyền để nginx có thể truy cập vào: `-R 755`. Ngoài ra cần cấu hình thêm ở file nginx của Laravel bằng cách thêm khối này vào trong file:
+  ```
+  location ^~ /.well-known/ {
+    allow all;
+  }
+Việc thêm khối này sẽ giúp ZeroSSL truy cập vào file Auth để xác thực và cập nhật.
+Sau khi hoàn thành người dùng sẽ quay lại xác thực trên ZeroSSL và tải về file .zip gồm có: `ca_bundle.crt`, `certificate.crt`, `private.key`. Bởi __Nginx__ chỉ cần __1__ file `.crt` duy nhất nên người dùng cần gộp 2 file lại thành 1 file duy nhất.
+```
+cat zerossl_cert/ca_bundle.crt >> zerossl_cert/certificate.crt
+```
+Tạo file để lưu trữ file SSl trong Domain và để Nginx truy cập và áp dụng cho website của người dùng.
+```
+sudo mkdir -p /etc/ssl/zerossl/wp
+```
+Sau đó người dùng sẽ copy 2 file vào đường dẫn trên: file `.crt` (sau khi đã gộp 2 file) và `private.key`
+Sau đó người dùng cần cấu hình file config của __Nginx__ để nó có thể áp dụng SSL cho trang web. Người dùng sẽ thêm các nội dung dưới đây.
+```
+ssl_certificate      /etc/ssl/zerossl/laravel/certificate.crt;
+ssl_certificate_key  /etc/ssl/zerossl/laravel/private.key;
+```
+Các option này để __Nginx__ truy cập và áp dụng SSL
+Ngoài ra để tăng tính bảo mật người dùng có thể chuyển từ __HTTP__ sang __HTTPS__ bằng cách thêm phần này vào cuối file
+```
+server {
+    listen 80;
+    server_name wp.tule.vietnix.tech;
+    return 301 https://$host$request_uri;
+}
+```
+Việc chuyển từ HTTP sang HTTPS sẽ giúp tăng tính bảo mật cho trang web của người dùng và thêm nhiều lợi ích khác nhưng sẽ không được đề cập ở bài viết này.
+
+* Sau khi cấu hình, người dùng sẽ cần reload lại nginx. Nếu SSL được cài đặt đúng thì khi truy cập lại trang web sẽ có biểu tượng ổ khóa thay vì dòng chữ __không an toàn__ trước đó. Và khi xem thêm thì các thông tin của certificate và nhà cung cấp sẽ hiện ra và nếu đó là ZeroSSL thì có nghĩa SSL đã được thành công
+
+### SSL cho Laravel:
+Tương tự như khi bạn cấu hình cho WordPress, chỉ khác về đường dẫn trong việc tạo và lưu file. Người dùng có thể tham khảo và thực hiện tương tự
+
+
 ## TẠO TÀI KHOẢN FTP
 Cài đặt _vsftpd (FTP server):
 ```
