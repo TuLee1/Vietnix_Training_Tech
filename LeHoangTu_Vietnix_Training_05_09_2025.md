@@ -272,7 +272,9 @@ sudo ln -s /etc/nginx/sites-available/laravel.tule.vietnix.tech /etc/nginx/sites
 sudo nginx -t
 sudo systemctl reload nginx
 ```
+<br>
 
+<img width="570" height="213" alt="Image" src="https://github.com/user-attachments/assets/85a1aceb-4353-49e2-985b-8dde2646e1ba" />
 
 Sau khi reload thành công người dùng có thể kiểm thử bằng file info.php
 ```
@@ -283,7 +285,11 @@ Với nội dung :
 <?php
 phpinfo();
 ```
-Sau đó truy cập vào đường dẫn `http://laravel.tule.vietnix.tech/info.php`
+Sau đó truy cập vào đường dẫn `http://laravel.tule.vietnix.tech/info.php`  
+<br>
+<img width="1671" height="586" alt="Image" src="https://github.com/user-attachments/assets/5ac29c19-9de6-46aa-b15c-5caf3eaf726b" />  
+<br>
+
 Nếu giao diện như trên hình thì chứng tỏ website laravel đã hoạt động.
 
 
@@ -364,7 +370,10 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 Sau đó người dùng có thể truy cập vào đường dẫn `wp.tule.vietnix.tech` và giao diện của WordPress sẽ hiện ra. Sau khi người dùng đăng nhập vào và tiến hành tùy chỉnh thì khi tải lại giao diện của web sẽ hiện đúng như những gì đã được cài đặt, ví dụ như hình dưới:
+<br>
 
+<img width="1688" height="993" alt="Image" src="https://github.com/user-attachments/assets/2c435bef-7d77-4c47-bce3-219bb804e99d" />  
+<br>
 
 
 ---
@@ -377,6 +386,11 @@ Người dùng tiến hành điền các thông tin như __Domain__, __Validity_
 __Sau khi xong bước đầu, người dùng cần tiến hành xác thực để chứng minh quyền sở hữu tên miền.__
 * Người dùng tiến hành tải __file xác thực__ tại __Download Auth File__ (File được tải về dưới dạng .txt). Sau đó giải nén và upload file lên VPS (có thể sử dụng FTP)
   Ở trang của __ZeroSSL__ sẽ có hướng dẫn người dùng cần upload file xác nhận vào đường dẫn nào. Ví dụ như trong hình
+  <br>
+  
+  <img width="1015" height="953" alt="Image" src="https://github.com/user-attachments/assets/5c741b9d-a69b-4fdc-83fc-8b18ab312c80" />
+  <br>
+  
   ```
   Upload the Auth File to your HTTP server under: /.well-known/pki-validation/
   ```
