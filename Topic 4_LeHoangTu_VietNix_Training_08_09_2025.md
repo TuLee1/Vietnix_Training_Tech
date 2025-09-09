@@ -89,9 +89,31 @@ sudo systemctl reload apache2
 
 ### 5. SSL
 Người dùng sử dụng lại SSL đã được ZeroSSL cấp trước đó. Về cách cấu hình thì ở phần __Apache__ và __Nginx__, người dùng có thể thấy các cấu hình liên quan đến __ssl__ . Sau khi cài thành công thì SSL cũng đã áp dụng thành công lên 2 domain.
+#### Apache:
+* WordPress:  
+  <img width="718" height="321" alt="Image" src="https://github.com/user-attachments/assets/3fefa821-10ec-40d9-9ba7-04033a9d8406" />
 
+  <br>
+  
+* Laravel:  
+  <img width="957" height="640" alt="Image" src="https://github.com/user-attachments/assets/db5a7760-d66f-4ec6-997e-a72043cd1d7c" />
+
+#### Nginx
+* WordPress:
+<img width="775" height="501" alt="Image" src="https://github.com/user-attachments/assets/1cb9b1a2-db2f-4e99-b498-63a201a68142" />
+
+<br>
+
+* Laravel:
+<img width="736" height="557" alt="Image" src="https://github.com/user-attachments/assets/bea06d65-ab58-49c9-b997-29a538500ba5" />
+
+<br>
+
+
+Việc cấu hình SSL ở cả Nginx và Apache sẽ tạo ra kết nối SSL __end-to-end__ giúp tăng tính bảo mật vì khi đó dữ liệu sẽ được mã hóa trong suốt quả trình từ client đến backend để xử lí.
 
 ---
+
 ## Tạo Default VHost cho VPS
 * __Đặt Vhost ở Nginx__: Vì nginx sẽ nhận tất cả request và xử lý tại đây, giúp giảm lưu lượng và giúp apache không phải xử lý các request không cần thiết.
 
