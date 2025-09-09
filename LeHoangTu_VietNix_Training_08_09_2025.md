@@ -9,19 +9,35 @@ Do cả apache và nginx đều sử dụng port 80/443 (HTTP/HTTPS) và trong h
 ```
 sudo nano /etc/apache2/ports.conf
 ```
+
+<img width="705" height="336" alt="Image" src="https://github.com/user-attachments/assets/34722afc-7674-44a1-9595-43388e486b1a" />
+
 Ở trong file người dùng sẽ thay đổi port 80/443 thành 8080/8081 (hoặc bất kì port nào khác còn trống )  
 
 ### 2. Cấu hình Virtual Host cho 2 website
 Tiến hành cấu hình để 2 website có thể chạy được trên apache
 * __WordPress__
+<img width="776" height="602" alt="Image" src="https://github.com/user-attachments/assets/e4030879-6d24-4e40-a797-a9fac87f21db" />  
+
+<br>
+<br>
+  
 
 * __Laravel__
+<img width="888" height="660" alt="Image" src="https://github.com/user-attachments/assets/58727eba-1b60-4c9d-8373-f9205e214c88" />
 
 ### 3. Cấu hình Nginx
 Tiến hành cấu hình để Nginx trở thành Reverse Proxy - tiếp nhận tất cả request rồi mới gửi về cho Apache.
-* __WordPress__  
+* __WordPress__
+<img width="675" height="444" alt="Image" src="https://github.com/user-attachments/assets/2c9e7ad7-d99e-4841-9a0c-e0a87c367c57" />
+<br>
+
+
 
 * __Laravel__
+<img width="618" height="491" alt="Image" src="https://github.com/user-attachments/assets/739c8b42-82c3-4102-ac5f-2ae492f32ada" />
+<br>
+<br>
 
 * Ở 2 file này các `proxy_` chính là những gì người dùng cấu hình để __Nginx__ trở thành __Reverse Proxy__.
 Trong các __proxy__ này thì dòng `proxy_pass`: sẽ trỏ request từ bên ngoài đến địa chỉ cần đến back end. Việc này giúp Apache chỉ cần xử lý các request ở port 443 -> port 8081  
@@ -53,6 +69,8 @@ sudo nano /etc/apache2/mods-available/rpaf.conf
 ```
 
 Nội dung:  
+
+<img width="392" height="217" alt="Image" src="https://github.com/user-attachments/assets/407d6905-9da1-44df-a57a-9ae439556af5" />
 
 `RFAP_ProxyIPs`: Người dùng nhập địa chỉ IP của server Apache
 
@@ -131,4 +149,7 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 Sau đó người dùng có thể truy cập trực tiếp bằng địa chỉ IP của VPS và dù là HTTP hay HTTPS thì kết quả đều sẽ trả về default VPS như hình dưới
-Ở sẽ có thông báo "Không an toàn" thì do ở đây người dùng sử dụng chứng chỉ tự kí. Để xóa trạng thái này người dùng có thể sử dụng các bên thứ 3 như __ZeroSSL, Let's Encrypt, ... __
+<img width="951" height="148" alt="Image" src="https://github.com/user-attachments/assets/c148c721-513a-4292-b3aa-e7325fd2a119" />
+
+<img width="961" height="225" alt="Image" src="https://github.com/user-attachments/assets/e8e28151-7727-4620-bec4-c488a98b6814" />
+Ở sẽ có thông báo "Không an toàn" bởi vì trong trường hợp này người dùng sử dụng chứng chỉ tự kí (tạo bằng openssl). Để xóa trạng thái này người dùng có thể sử dụng các bên thứ 3 như ZeroSSL, Let's Encrypt.
