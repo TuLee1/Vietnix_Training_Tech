@@ -42,6 +42,12 @@ Tiến hành cấu hình để Nginx trở thành Reverse Proxy - tiếp nhận 
 * Ở 2 file này các `proxy_` chính là những gì người dùng cấu hình để __Nginx__ trở thành __Reverse Proxy__.
 Trong các __proxy__ này thì dòng `proxy_pass`: sẽ trỏ request từ bên ngoài đến địa chỉ cần đến back end. Việc này giúp Apache chỉ cần xử lý các request ở port 443 -> port 8081  
 * Ngoài ra nếu người dùng không sử dụng tùy chọn `return 301 ...` (chuyển request HTTP tự động sang HTTPS) thì có thể cấu hình tương tự của server 443 để các request từ port 80 của nginx sẽ đẩy về port 8080 tương ứng của apache.
+
+### Nginx đặt trước Apache:
+* Việc đặt nginx phía trước Apache dưới dạng __reverse proxy__ giúp tận dụng được khả năng xử lý các request từ người dùng đặc biệt là các file tĩnh (html, css, png, ...). Khi gặp các nội dung động (ví dụ như các gói PHP), Nginx sẽ gửi request cho Apache xử lí và trả về kết quả hiển thị. Việc kết hợp Nginx và Apache sẽ giúp giảm tải cho hệ thống thay vì Apache sẽ phải tiếp nhận và xử lý tất cả request.
+* Việc sử dụng cả 2 dịch vụ sẽ tận dụng được tối ưu điểm mạnh của cả Nginx (nhanh, gọn, tối ưu trong kết nối) và Apache (linh hoạt, phù hợp với nhiều ứng dụng PHP như Laravel, WordPress).
+* Ngoài ra trong trường hợp có nhiều server backend thì Nginx có cả load balancer giúp phân bổ request đều cho các máy chủ -> Giúp hệ thống hoạt động ổn định hơn và duy trì tính liên tục của hệ thống.
+
 ### 4. Cấu hình mod_rpaf
 Module này được cài để viết lại các giá trị của REMOTE_ADDR, HTTPS và HTTP_PORT dựa trên cái giá trị do reverse proxy (nginx) cung cấp. Module này giúp hệ thống không cần phải sửa mã nguồn để có thể chạy các ứng dụng PHP  
 
@@ -81,8 +87,8 @@ sudo apachetl -t
 sudo systemctl reload apache2
 ```
 
-### 4. SSL
-Người dùng sử dụng lại SSL đã được ZeroSSL cấp trước đó. Về cách cấu hình thì ở phần __Apache__ và __Nginx__, người dùng có thể thấy các cấu hình liên quan đến ssl. Sau khi cài thành công thì SSL cũng đã áp dụng thành công lên 2 domain.
+### 5. SSL
+Người dùng sử dụng lại SSL đã được ZeroSSL cấp trước đó. Về cách cấu hình thì ở phần __Apache__ và __Nginx__, người dùng có thể thấy các cấu hình liên quan đến __ssl__ . Sau khi cài thành công thì SSL cũng đã áp dụng thành công lên 2 domain.
 
 
 ---
