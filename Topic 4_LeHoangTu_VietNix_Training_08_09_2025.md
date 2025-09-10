@@ -29,16 +29,17 @@ Tiến hành cấu hình để 2 website có thể chạy được trên apache
 ### 3. Cấu hình Nginx
 Tiến hành cấu hình để Nginx trở thành Reverse Proxy - tiếp nhận tất cả request rồi mới gửi về cho Apache.
 * __WordPress__
-<img width="675" height="444" alt="Image" src="https://github.com/user-attachments/assets/2c9e7ad7-d99e-4841-9a0c-e0a87c367c57" />
+<img width="701" height="670" alt="Image" src="https://github.com/user-attachments/assets/a70b3b08-6d5e-4739-a9e8-20617028e781" />
+
 <br>
-
-
 
 * __Laravel__
-<img width="618" height="491" alt="Image" src="https://github.com/user-attachments/assets/739c8b42-82c3-4102-ac5f-2ae492f32ada" />
+<img width="702" height="651" alt="Image" src="https://github.com/user-attachments/assets/5b627aa4-3d53-4ac3-bf37-18e7d52f715a" />  
+
 <br>
 <br>
 
+  
 * Ở 2 file này các `proxy_` chính là những gì người dùng cấu hình để __Nginx__ trở thành __Reverse Proxy__.
 Trong các __proxy__ này thì dòng `proxy_pass`: sẽ trỏ request từ bên ngoài đến địa chỉ cần đến back end. Việc này giúp Apache chỉ cần xử lý các request ở port 443 -> port 8081  
 * Ngoài ra nếu người dùng không sử dụng tùy chọn `return 301 ...` (chuyển request HTTP tự động sang HTTPS) thì có thể cấu hình tương tự của server 443 để các request từ port 80 của nginx sẽ đẩy về port 8080 tương ứng của apache.
