@@ -42,6 +42,9 @@ Tiến hành cấu hình để Nginx trở thành Reverse Proxy - tiếp nhận 
 * Ở 2 file này các `proxy_` chính là những gì người dùng cấu hình để __Nginx__ trở thành __Reverse Proxy__.
 Trong các __proxy__ này thì dòng `proxy_pass`: sẽ trỏ request từ bên ngoài đến địa chỉ cần đến back end. Việc này giúp Apache chỉ cần xử lý các request ở port 443 -> port 8081  
 * Ngoài ra nếu người dùng không sử dụng tùy chọn `return 301 ...` (chuyển request HTTP tự động sang HTTPS) thì có thể cấu hình tương tự của server 443 để các request từ port 80 của nginx sẽ đẩy về port 8080 tương ứng của apache.
+* Tùy chọn `location ~* \.(jpg|jpeg|png|gif|ico|css|js|pdf|webp|svg|woff2?|ttf|mp4)`: được cấu hình để Nginx xử lý các file tĩnh mà không cần chuyển sang Apache giúp giảm tải cho hệ thống.
+
+<br>
 
 ### Nginx đặt trước Apache:
 * Việc đặt nginx phía trước Apache dưới dạng __reverse proxy__ giúp tận dụng được khả năng xử lý các request từ người dùng đặc biệt là các file tĩnh (html, css, png, ...). Khi gặp các nội dung động (ví dụ như các gói PHP), Nginx sẽ gửi request cho Apache xử lí và trả về kết quả hiển thị. Việc kết hợp Nginx và Apache sẽ giúp giảm tải cho hệ thống thay vì Apache sẽ phải tiếp nhận và xử lý tất cả request.
@@ -100,12 +103,12 @@ Người dùng sử dụng lại SSL đã được ZeroSSL cấp trước đó. 
 
 #### Nginx
 * WordPress:
-<img width="775" height="501" alt="Image" src="https://github.com/user-attachments/assets/1cb9b1a2-db2f-4e99-b498-63a201a68142" />
+<img width="702" height="651" alt="Image" src="https://github.com/user-attachments/assets/5b627aa4-3d53-4ac3-bf37-18e7d52f715a" />
 
 <br>
 
 * Laravel:
-<img width="736" height="557" alt="Image" src="https://github.com/user-attachments/assets/bea06d65-ab58-49c9-b997-29a538500ba5" />
+<img width="701" height="670" alt="Image" src="https://github.com/user-attachments/assets/a70b3b08-6d5e-4739-a9e8-20617028e781" />
 
 <br>
 
@@ -181,3 +184,42 @@ Sau đó người dùng có thể truy cập trực tiếp bằng địa chỉ I
 
 <img width="961" height="225" alt="Image" src="https://github.com/user-attachments/assets/e8e28151-7727-4620-bec4-c488a98b6814" />
 Ở sẽ có thông báo "Không an toàn" bởi vì trong trường hợp này người dùng sử dụng chứng chỉ tự kí (tạo bằng openssl). Để xóa trạng thái này người dùng có thể sử dụng các bên thứ 3 như ZeroSSL, Let's Encrypt.
+
+---
+## DEMO
+Ở trong phần demo này, website Laravel sẽ sử dụng website có cả các file tĩnh (css, png, ...) và file động (php)  
+
+Nguồn: https://github.com/bagisto/bagisto (Trang web bán hàng)  
+
+Người dùng tiến hành tải các tài nguyên về và cài lên domain (domain được sử dụng ở đây là laravel.tule.vietnix.tech) 
+
+Giao diện web:  
+
+<img width="1671" height="803" alt="Image" src="https://github.com/user-attachments/assets/6e4ed95f-f51f-4941-a6e4-0719e06ce480" />  
+
+<br>
+
+Để thuận tiện hơn cho việc chạy thử và kiểm tra người dùng có thể thêm header để kiểm tra xem file đó là được xử lý bới __Nginx__ hay __Apache__ : bằng 2 dòng dưới đây cho cả file config của __Apache__ và __Nginx__
+
+<img width="740" height="691" alt="Image" src="https://github.com/user-attachments/assets/2a32ae54-f44e-4bd8-8864-7af7c9277362" />
+<img width="712" height="651" alt="Image" src="https://github.com/user-attachments/assets/63db1598-8fe7-4ec0-ab22-cc84330c260b" />
+
+Việc thêm các "header" này chỉ nhằm mục đích chạy thử và dễ dàng hơn trong việc xác định các request được xử lý bằng __Nginx__ hay __Apache__ nên trong một hệ thống hoạt động bình thường thì các câu lệnh này sẽ không cần thiết.
+
+<br>
+
+* Test:
+Load trang web hoặc truy cập vào tài nguyên bất kì của trang web:
+
+1. `F12`
+2. Chọn `Network`(hay Mạng).
+3. Reload lại
+Khi đó người dùng sẽ thấy các request và kết quả trả về và khi chọn vào thì có thể xem header và tìm kiếm header `x-handled-by` xem file đó được xử lý bới __Nginx__ hay __Apache__.
+<img width="1672" height="1008" alt="Image" src="https://github.com/user-attachments/assets/90745ab2-c69c-4588-ac25-f225a2ad3b95" />
+<img width="1671" height="1010" alt="Image" src="https://github.com/user-attachments/assets/e4a1ece7-830d-4f55-8737-b59314169578" />  
+
+<br>
+
+Hoặc có thể dùng lệnh "curl" trên CMD thì khi đó kết quả sẽ trả về bao gồm cả __Header__ đã được cấu hình thêm.  
+
+<img width="952" height="232" alt="Image" src="https://github.com/user-attachments/assets/55729419-39c0-405b-b8d4-9dfbad9db3ea" />  
