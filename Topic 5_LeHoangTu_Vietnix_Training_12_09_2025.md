@@ -57,6 +57,15 @@ Thêm các dòng này vào file `/etc/hosts`. Điều này sẽ giúp domain tr�
 
 <img width="1069" height="279" alt="Image" src="https://github.com/user-attachments/assets/15762b35-2619-4d9b-8f03-b340f16d6b37" />
 
+### 4. Gán SSL cho domain
+Người dùng tiến hành gán SSl cho 2 domain  
+
+<img width="1676" height="923" alt="Image" src="https://github.com/user-attachments/assets/cf567e8f-a886-4dc0-a6bc-09aa22f6534e" />
+
+<img width="1671" height="940" alt="Image" src="https://github.com/user-attachments/assets/f0dfcd2e-cd20-4015-92c6-ad81a0abb7c7" />
+
+<img width="1680" height="1023" alt="Image" src="https://github.com/user-attachments/assets/d81c636c-b6b2-4c44-a99a-c2ea43758bb4" />
+Người dùng tiến hành copy các file `.crt`, `.key` tương ứng vào. Sau khi Install thì trang web sẽ được áp dụng SSL
 ### Kiểm tra
 Dùng lệnh `curl` để kiểm tra xem trang web hoạt động bình thường. Ngoài ra, có thể dùng thêm lệnh `nslookup` để xem domain có trỏ về đúng địa chỉ không
 
