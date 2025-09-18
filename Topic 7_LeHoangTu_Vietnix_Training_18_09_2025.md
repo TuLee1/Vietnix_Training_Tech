@@ -52,6 +52,12 @@ Sau đó cấu hình trong các file .env (của laravel) và php-config (của 
 <br><br>
 Sau khi hoàn thành người dùng có thể truy cập vào 2 trang web WordPress và Laravel bình thường
 
+### SSL
+Khi người dùng deply web lên cyber panel thì cyber panel sẽ hỗ trợ gán chứng chỉ SSL lên cho trang web. Trong trường hợp bị lỗi thì chỉ cần chọn `Issue SSL` khi đó panel sẽ tự sửa lỗi và gán lại cho người dùng
+<br><br>
+<img width="1920" height="1010" alt="Image" src="https://github.com/user-attachments/assets/79418be6-da4a-4732-9280-06eb737165af" />
+
+
 ## ProxyPass
 ### Tạo tài khoản admin
 Để truy cập được OpenLiteSpeeed, người dùng cần tạo tài khoản và mật khẩu admin
@@ -83,6 +89,7 @@ context /api/ {
 <br><br>
 <img width="1918" height="996" alt="Image" src="https://github.com/user-attachments/assets/321c9e12-afb0-44dc-b4e7-a26f013b7c8b" />
 <br><br>
+
 
 ### Tạo app chạy trên port 5000
 Người dùng tiến hành tạo 1 app python đơn giản để chạy ở port 5000 và có endpoint là `api` để nhận request
