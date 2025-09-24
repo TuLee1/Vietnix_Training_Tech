@@ -44,7 +44,7 @@ Sau đó reload thì các trang web sẽ hoạt động
 
 
 ## SSL
-Khi tạo domain thì người dùng đã có thể thêm phần SSL cho trang web như trên. Trong trường hợp người dùng cần chỉnh sửa thì nếu không muốn sử dụng giao diện web thì người dùng có thể tìm được đường dẫn của các file key hay crt trong file config của WordPress và Laravel
+Khi tạo domain thì người dùng đã có thể thêm phần SSL cho trang web như trên. Trong trường hợp người dùng cần chỉnh sửa thì nếu không muốn sử dụng giao diện web thì người dùng có thể tìm được đường dẫn của các file key hay crt trong file config của WordPress và Laravel  
 <img width="921" height="759" alt="Image" src="https://github.com/user-attachments/assets/752e53e1-549d-4f98-91c1-b6a4e49fbe5a" />
 <br><br>
 <img width="1692" height="109" alt="Image" src="https://github.com/user-attachments/assets/f422139f-287c-4fc6-beb9-af10937a7107" />
